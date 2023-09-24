@@ -3,11 +3,12 @@ package com.gcu.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.gcu.data.ProductDAO;
 import com.gcu.models.ProductModel;
 
-
+@Service
 public class ProductBusinessService implements IProductBusinessService{
 	
 	@Autowired

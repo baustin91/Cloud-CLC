@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Admin Functions</title>
+  </head>
+  <body>
+    <div class="card">
+  <div class="card-header">
+   <a href="/" class="link">Sales Website</a>
+    <a class="btn btn-primary" style="float: right" href="/" role="button">Log Out</a>
+    </div>
+</div>
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Name</th>
+			<th scope="col">Price</th>
+			<th scope="col">Description</th>
+			<th scope="col">Image URL</th>
+			<th scope="col">Edit</th>
+			<th scope="col">Complete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="product : ${inventoryList}">
+			<td th:text="${product.id}"></td>
+			<td th:text="${product.name}"></td>
+			<td th:text="${product.price}"></td>
+			<td th:text="${product.description}"></td>
+			<td th:text="${product.img_url}"></td>
+			<td>
+				<form action="#" th:action="@{editProduct}" th:object="${editProduct}" method="post">
+					<input name="id" type="hidden" th:value="${product.id}">
+					<input name="name" type="hidden" th:value="${product.name}">
+					<input name="price" type="hidden" th:value="${product.price}">
+					<input name="description" type="hidden" th:value="${product.description}">
+					<input name="img_url" type="hidden" th:value="${product.img_url}">
+					<button class="btn btn-secondary" type="submit" name="editItem">Edit</button>
+				</form>
+			</td>
+			<td>
+				<form action="#" th:action="@{deleteProduct}" th:object="${product}" method="post">
+					<input name="id" type="hidden" th:value="${product.id}">
+					<button class="btn btn-danger" type="submit" name="deleteItem">Delete</button>
+				</form> 
+			</td>
+	</tbody>
+</table>
+
+<a href="/inventory/newInventoryForm" class="btn btn-primary">Add New Product</a>
+ <a class="btn btn-primary" style="float: center" href="displaycount.html" role="button">Display Inventory Count</a>
+        
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

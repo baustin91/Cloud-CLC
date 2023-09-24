@@ -9,12 +9,13 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import com.gcu.models.ProductMapper;
 import com.gcu.models.ProductModel;
 
 
-
+@Repository
 public class ProductDAO implements IProductDAO{
 	
 	@Autowired
@@ -25,7 +26,7 @@ public class ProductDAO implements IProductDAO{
 
 	@Override
 	public ProductModel getById(int id) {
-		List<ProductModel> results = jdbcTemplate.query("SELECT * FROM TODO WHERE ID = ?", new ProductMapper(), id);
+		List<ProductModel> results = jdbcTemplate.query("SELECT * FROM products WHERE ID = ?", new ProductMapper(), id);
 		
 		if (results.size() > 0)
 			return results.get(0);
@@ -35,7 +36,7 @@ public class ProductDAO implements IProductDAO{
 
 	@Override
 	public List<ProductModel> getAllProducts() {
-		List<ProductModel> results = jdbcTemplate.query("SELECT * FROM TODO", new ProductMapper());
+		List<ProductModel> results = jdbcTemplate.query("SELECT * FROM products", new ProductMapper());
 		return results;
 	}
 
@@ -43,7 +44,7 @@ public class ProductDAO implements IProductDAO{
 	public int addOne(ProductModel newProduct) {
 		SimpleJdbcInsert simpleInsert = new SimpleJdbcInsert(jdbcTemplate);
 		
-		simpleInsert.withTableName("PRODUCTS").usingGeneratedKeyColumns("ID");
+		simpleInsert.withTableName("products").usingGeneratedKeyColumns("ID");
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("NAME", newProduct.getName());
@@ -58,7 +59,7 @@ public class ProductDAO implements IProductDAO{
 
 	@Override
 	public boolean deleteOne(int id) {
-		int results = jdbcTemplate.update("DELETE FROM PRODUCTS WHERE ID = ?", id);
+		int results = jdbcTemplate.update("DELETE FROM products WHERE ID = ?", id);
 		
 		if (results > 0)
 			return true;
@@ -68,7 +69,7 @@ public class ProductDAO implements IProductDAO{
 
 	@Override
 	public ProductModel updateOne(int id, ProductModel updateProduct) {
-		int results = jdbcTemplate.update("UPDATE PRODUCTS SET NAME = ?, PRICE = ?, DESCRIPTION = ?, IMG_URL = ?  WHERE ID = ?", 
+		int results = jdbcTemplate.update("UPDATE products SET NAME = ?, PRICE = ?, DESCRIPTION = ?, IMG_URL = ?  WHERE ID = ?", 
 				updateProduct.getName(),
 				updateProduct.getPrice(),
 				updateProduct.getDescription(),

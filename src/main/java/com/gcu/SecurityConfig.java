@@ -16,7 +16,18 @@ public class SecurityConfig {
 	
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    	
+    	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        // Just for demonstration, not recommended for production
+        String rawPassword = "test";
+        String encodedPassword = encoder.encode(rawPassword);
+        System.out.println("Encoded Password: " + encodedPassword);
+
+        return encoder;
+    	
+        //return new BCryptPasswordEncoder();
+        
     }
 
 	@Bean
@@ -25,19 +36,19 @@ public class SecurityConfig {
 		
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers( "/css/**", "/js/**", "/images/**", "/login/**", "/") //<-- adjust this for security
+				.requestMatchers( "/css/**", "/js/**", "/images/**", "/") //<-- adjust this for security
 				.permitAll()
 				.anyRequest()
 				.authenticated()
 			)
 			
 			.formLogin((form) -> form
-					.loginPage("/login/")
-					.loginProcessingUrl("/login/processLogin")
+					.loginPage("/adminlogin/")
+					.loginProcessingUrl("/adminlogin/processLogin")
 					.usernameParameter("username")
 		            .passwordParameter("password")
-		            .failureForwardUrl("/login/")
-		            .defaultSuccessUrl("/ToDoList/", true)
+		            .failureForwardUrl("/adminlogin/")
+		            .defaultSuccessUrl("/inventory/", true)
 			)
 			
 			.logout((logout) -> logout
@@ -51,3 +62,4 @@ public class SecurityConfig {
 	}
 	
 }
+

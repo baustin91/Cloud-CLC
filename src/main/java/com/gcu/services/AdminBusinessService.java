@@ -8,11 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.gcu.data.AdminDAO;
 import com.gcu.models.AdminModel;
 
-public class AdminBusinessService implements IAdminBusinessService, UserDetailsService{
+@Service
+public class AdminBusinessService implements IAdminBusinessService, UserDetailsService {
 	
 	@Autowired
 	AdminDAO adminDAO;
@@ -25,6 +27,7 @@ public class AdminBusinessService implements IAdminBusinessService, UserDetailsS
 		return adminDAO.getByUsername(username);
 	}
 
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		AdminModel admin = getByUsername(username);
@@ -34,5 +37,5 @@ public class AdminBusinessService implements IAdminBusinessService, UserDetailsS
 	    
 	    return new User(admin.getUsername(), admin.getPassword(), new ArrayList<>());
 	}
-
+	
 }
