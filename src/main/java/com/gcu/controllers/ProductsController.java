@@ -3,6 +3,8 @@ package com.gcu.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +21,17 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/shop")
 public class ProductsController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ProductsController.class);
+
+	
 	@Autowired
 	ProductBusinessService service;
 	
 	@GetMapping("/")
 	public String showAllInventory(Model model)
 	{
+		logger.info("Displaying shop page from Products Controller");
+
 		List<ProductModel> productsList = service.getProducts();
 		
 		model.addAttribute("productsList", productsList);
@@ -35,6 +42,9 @@ public class ProductsController {
 	
 	@GetMapping("/addToCart")
 	public String addToCart(@RequestParam("id") int productId, HttpSession session) {
+		
+		logger.info("addToCart() method being called from Products Controller");
+
 	    
 	    System.out.println("Entered addToCart");  // Log statement
 
@@ -68,6 +78,9 @@ public class ProductsController {
 
 	@GetMapping("/cart")
 	public String showCart(HttpSession session, Model model) {
+		
+		logger.info("Displaying cart page from Products Controller");
+		
 	    Object cartObj = session.getAttribute("cart");
 	    double total = 0.0;
 	    
@@ -90,6 +103,9 @@ public class ProductsController {
 	
 	@GetMapping("/checkout")
 	public String checkout(HttpSession session, Model model) {
+		
+		logger.info("Displaying checkout page from Products Controller");
+		
 	    session.removeAttribute("cart");
 
 	    return "checkout";
