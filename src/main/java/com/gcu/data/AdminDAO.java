@@ -25,6 +25,7 @@ public class AdminDAO implements IAdminDAO{
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
+	//Test the database for the input username and send to Business Service
 	@Override
 	public AdminModel getByUsername(String username) {
 		

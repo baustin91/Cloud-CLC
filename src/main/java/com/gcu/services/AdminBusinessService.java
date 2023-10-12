@@ -27,13 +27,14 @@ public class AdminBusinessService implements IAdminBusinessService, UserDetailsS
 	@Autowired
     PasswordEncoder passwordEncoder;
 
+	//Takes the form input from the controller and passes it to the DAO class 
 	@Override
 	public AdminModel getByUsername(String username) {
         logger.info("getByUsername() being called from AdminBusinessService. Getting admin by username: {}", username);
 		return adminDAO.getByUsername(username);
 	}
 
-	
+	//Uses Spring Security and the UserDetailsService to test the response from the DAO class and authenticate the user 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("loadUserByUsername() being called from AdminBusinessService. Loading user by username: {}", username);

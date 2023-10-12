@@ -26,6 +26,7 @@ public class InventoryController {
 	@Autowired
 	ProductBusinessService service;
 
+	//Gets all the inventory from the business serivces that gets it from the database and displays 
 	@GetMapping("/")
 	public String showAllInventory(Model model)
 	{
@@ -38,6 +39,7 @@ public class InventoryController {
 		return "inventory";
 	}
 	
+	//Directs to the form to add a new inventory item 
 	@GetMapping("/newInventoryForm")
 	public String newInventoryForm(Model model)
 	{
@@ -47,19 +49,21 @@ public class InventoryController {
 		return "add";
 	}
 	
+	//Processes the request to add a new item from the add new inventory form 
 	@PostMapping("/addNew")
 	public String addNew(ProductModel newProduct, BindingResult br, Model model)
 	{
 		logger.info("addNew() method being called from Inventory Controller");
 		
-		service.addProduct(newProduct);
-		List<ProductModel> inventoryList =service.getProducts();
+		service.addProduct(newProduct); //adds the new item 
+		List<ProductModel> inventoryList =service.getProducts(); //gets updated list to display 
 		
 		model.addAttribute("inventoryList", inventoryList);
 		
 		return "redirect:/inventory/";
 	}
 	
+	//Gets the item details and passes it to the edit item form 
 	@PostMapping("/editProduct")
 	public String editProduct(ProductModel editProduct, Model model)
 	{
@@ -69,26 +73,28 @@ public class InventoryController {
 		return "edit";
 	}
 	
+	//Processes the request to update the item in the list 
 	@PostMapping("editProductSubmit")
 	public String editProduct(ProductModel editProduct, BindingResult br, Model model)
 	{
 		logger.info("editProduct() method being called from Inventory Controller");
 
-		service.updateProduct(editProduct);
-		List<ProductModel> inventoryList = service.getProducts();
+		service.updateProduct(editProduct); //sends edits to the business service to pass to database 
+		List<ProductModel> inventoryList = service.getProducts(); //gets updated list to display 
 		
 		model.addAttribute("inventoryList", inventoryList);
 		
 		return"inventory";
 	}
 	
+	//Removes item from list 
 	@PostMapping("/deleteProduct")
 	public String deleteProduct(ProductModel product, BindingResult br, Model model)
 	{
 		logger.info("deleteProduct() method being called from Inventory Controller");
 
-		service.deleteProduct(product);
-		List<ProductModel> inventoryList =service.getProducts();
+		service.deleteProduct(product); //sends item to the business service to delete and also delete from the database
+		List<ProductModel> inventoryList =service.getProducts(); //gets updated list to display 
 		
 		model.addAttribute("inventoryList", inventoryList);
 		

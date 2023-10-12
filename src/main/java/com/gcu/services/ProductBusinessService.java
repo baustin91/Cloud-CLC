@@ -14,12 +14,14 @@ public class ProductBusinessService implements IProductBusinessService{
 	@Autowired
 	ProductDAO productDAO;
 
+	//Gets request from the controller and passes it to the database then sends info received from the DAO class back to the controller 
 	@Override
 	public List<ProductModel> getProducts() {
 		List<ProductModel> productList = productDAO.getAllProducts();
 		return productList;
 	}
 
+	//Sends the data from the controller to the DAO class to add to the database
 	@Override
 	public boolean addProduct(ProductModel product) {
 		try
@@ -33,6 +35,7 @@ public class ProductBusinessService implements IProductBusinessService{
 		}
 	}
 
+	//Verifies that the product exists then passes to the DAO for database changes and returns to controller 
 	@Override
 	public boolean updateProduct(ProductModel product) {
 		try
@@ -48,6 +51,7 @@ public class ProductBusinessService implements IProductBusinessService{
 		}
 	}
 
+	//Tests to make sure item exists then passes to DAO class to remove from the database 
 	@Override
 	public boolean deleteProduct(ProductModel product) {
 		try

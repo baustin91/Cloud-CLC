@@ -17,7 +17,7 @@ public class IndexController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
-	
+	//Display the admin login page
 	@GetMapping("/adminlogin")
 	public String displayAdminLogin(Model model)
 	{
@@ -26,6 +26,7 @@ public class IndexController {
 		return "redirect:/adminlogin/";
 	}
 	
+	//Display the shop page
 	@GetMapping("/shop")
 	public String displayShop(Model model)
 	{

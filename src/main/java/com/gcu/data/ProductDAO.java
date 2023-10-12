@@ -28,6 +28,7 @@ public class ProductDAO implements IProductDAO{
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
+	//Method to get a single inventory item from the database by its ID 
 	@Override
 	public ProductModel getById(int id) {
 		logger.info("getById() method being called in ProductDAO. Getting product by ID: {}", id);
@@ -43,6 +44,7 @@ public class ProductDAO implements IProductDAO{
 		}
 	}
 
+	//Method to get all the inventory items from the database 
 	@Override
 	public List<ProductModel> getAllProducts() {
 		logger.info("getAllProducts() method being called from ProductDAO");
@@ -51,6 +53,7 @@ public class ProductDAO implements IProductDAO{
 		return results;
 	}
 
+	//Method to add an item from the business service to the database 
 	@Override
 	public int addOne(ProductModel newProduct) {
 		
@@ -72,6 +75,7 @@ public class ProductDAO implements IProductDAO{
 		return result.intValue();
 	}
 
+	//Receives request from business service and removes the item from the database 
 	@Override
 	public boolean deleteOne(int id) {
 		logger.info("deleteOne() being called from ProductDAO. Deleting product with ID: {}", id);
@@ -88,6 +92,7 @@ public class ProductDAO implements IProductDAO{
 		}
 	}
 
+	//Gets the updated info from the busienss service and updates the database with the new data 
 	@Override
 	public ProductModel updateOne(int id, ProductModel updateProduct) {
 		logger.info("updateOne() being called from ProductDAO. Updating product with ID: {}", id);
